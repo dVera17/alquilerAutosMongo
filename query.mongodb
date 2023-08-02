@@ -462,3 +462,7 @@ db.getCollection("Reserva").aggregate([
 // Obtener los detalles del alquiler con el ID_Alquiler específico. 
 use('db_campus_alquiler');
 db.Alquiler.find({ ID_Alquiler: 1 });
+
+// Listar los empleados con el cargo de "Vendedor". 
+use('db_campus_alquiler');
+db.Empleado.find({ Cargo: "Vendedor"});
