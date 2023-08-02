@@ -414,3 +414,22 @@ db.getCollection("Alquiler").aggregate([
  * significa dividir cada elemento del array en documentos separados, 
  * manteniendo el resto del contenido del documento original.
  */
+
+// Listar todos los alquileres activos junto con los datos de los clientes relacionados.
+use('db_campus_alquiler');
+db.getCollection("Alquiler").aggregate([
+    { $match: { Estado: "Activo" }},
+    {
+        $lookup: {
+          from: "Cliente",
+          localField: "ID_Cliente",
+          foreignField: "ID_Cliente",
+          as: "fk"
+        }
+    },
+    { $unwind: "$fk" },
+    {
+        $replaceRoot: { newRoot: "$fk" }
+    },
+    { $project: { _id: 0 } }
+]);
