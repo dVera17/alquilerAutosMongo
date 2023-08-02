@@ -386,3 +386,31 @@ db.Empleado.insertMany([
 // Mostrar todos los clientes registrados en la base de datos
 use('db_campus_alquiler');
 db.Cliente.find({});
+
+//  Obtener todos los automóviles disponibles para alquiler.
+use('db_campus_alquiler');
+db.getCollection("Alquiler").aggregate([
+    { $match: { Estado: "Disponible" } },  
+    {
+        $lookup: {
+          from: "Automovil",
+          localField: "ID_Automovil",
+          foreignField: "ID_Automovil",
+          as: "fk"
+        }
+    },
+    {
+        $unwind: "$fk" // Se desenrolla el array
+    },
+    {
+        $replaceRoot: {
+            newRoot: "$fk" // Promover 'fk' como raíz del documento
+        }
+    },
+    { $project: { _id: 0 } }
+]);
+/**
+ * ! Unwind - Desenrrollar el array
+ * significa dividir cada elemento del array en documentos separados, 
+ * manteniendo el resto del contenido del documento original.
+ */
