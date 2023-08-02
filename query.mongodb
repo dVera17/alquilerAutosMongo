@@ -466,3 +466,27 @@ db.Alquiler.find({ ID_Alquiler: 1 });
 // Listar los empleados con el cargo de "Vendedor". 
 use('db_campus_alquiler');
 db.Empleado.find({ Cargo: "Vendedor"});
+
+// Mostrar la cantidad total de automóviles disponibles en cada sucursal. 
+use('db_campus_alquiler');
+db.Sucursal.aggregate([
+    {
+        $lookup: {
+          from: "Sucursal_Automovil",
+          localField: "ID_Sucursal",
+          foreignField: "ID_Sucursal",
+          as: "fk"
+        }
+    },
+    {
+        $unwind: "$fk"
+    },
+    {
+        $project: {
+            _id: 0,
+            fk: {
+                Cantidad_Disponible: 1
+            }
+        }
+    }
+]);
