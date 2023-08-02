@@ -458,3 +458,7 @@ db.getCollection("Reserva").aggregate([
     { $unwind: "$fkCliente" },
     { $project: { _id: 0 } }
 ]);
+
+// Obtener los detalles del alquiler con el ID_Alquiler específico. 
+use('db_campus_alquiler');
+db.Alquiler.find({ ID_Alquiler: 1 });
