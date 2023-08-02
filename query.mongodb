@@ -382,3 +382,7 @@ db.Empleado.insertMany([
         Cargo: "Chofer"
     }
 ]);
+
+// Mostrar todos los clientes registrados en la base de datos
+use('db_campus_alquiler');
+db.Cliente.find({});
