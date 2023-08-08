@@ -513,3 +513,31 @@ db.Automovil.find({ Capacidad: { $gt: 5 } });
 // Obtener los detalles del alquiler que tiene fecha de inicio en '2023-07-05'. 
 use('db_campus_alquiler');
 db.Alquiler.find({ Fecha_Inicio: "2023-07-05" });
+
+// Listar las reservas pendientes realizadas por un cliente específico.
+use('db_campus_alquiler');
+db.Reserva.aggregate([
+    {
+        $match: {
+            Estado: "Pendiente",
+            ID_Cliente: 1
+        }
+    },
+    {
+        $lookup: {
+            from: "Cliente",
+            localField: "ID_Cliente",
+            foreignField: "ID_Cliente",
+            as: "fk"
+        }
+    },
+    {
+        $unwind: "$fk"
+    },
+    {
+        $project: {
+            _id: 0,
+            fk: 1
+        }
+    }
+]);
