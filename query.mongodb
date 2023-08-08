@@ -491,7 +491,6 @@ db.Sucursal.aggregate([
     }
 ]);
 
-
 // Obtener el costo total de un alquiler específico.
 use('db_campus_alquiler');
 db.Alquiler.aggregate([
@@ -502,3 +501,7 @@ db.Alquiler.aggregate([
         }    
     }
 ]);
+
+// Listar los clientes con el DNI específico. 
+use('db_campus_alquiler');
+db.Cliente.find({ DNI: "12345678" });
