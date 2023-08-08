@@ -498,7 +498,7 @@ db.Alquiler.aggregate([
     {
         $project: {
             Costo_Total: 1
-        }    
+        }
     }
 ]);
 
@@ -508,4 +508,8 @@ db.Cliente.find({ DNI: "12345678" });
 
 // Mostrar todos los automóviles con una capacidad mayor a 5 personas. 
 use('db_campus_alquiler');
-db.Automovil.find({ Capacidad: { $gt: 5}});
+db.Automovil.find({ Capacidad: { $gt: 5 } });
+
+// Obtener los detalles del alquiler que tiene fecha de inicio en '2023-07-05'. 
+use('db_campus_alquiler');
+db.Alquiler.find({ Fecha_Inicio: "2023-07-05" });
