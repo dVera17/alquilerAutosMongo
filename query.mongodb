@@ -541,3 +541,7 @@ db.Reserva.aggregate([
         }
     }
 ]);
+
+// Mostrar los empleados con cargo de "Gerente" o "Asistente".
+use("db_campus_alquiler");
+db.Empleado.find({ Cargo: "Gerente" }); // Reemplazar Gerente por Asistente
