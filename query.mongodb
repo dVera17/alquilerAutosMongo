@@ -505,3 +505,7 @@ db.Alquiler.aggregate([
 // Listar los clientes con el DNI específico. 
 use('db_campus_alquiler');
 db.Cliente.find({ DNI: "12345678" });
+
+// Mostrar todos los automóviles con una capacidad mayor a 5 personas. 
+use('db_campus_alquiler');
+db.Automovil.find({ Capacidad: { $gt: 5}});
